@@ -1,6 +1,6 @@
 import React from "react";
-import { HeaderItemType } from "../../redux/types";
 import { HeaderItemContainer } from "./style";
+import { HeaderItemProps } from "./types";
 
 export const HeaderItem = ({
   name,
@@ -8,11 +8,7 @@ export const HeaderItem = ({
   index,
   onClick,
   isChecked = false
-}: HeaderItemType & {
-  index: number;
-  onClick(index: number): void;
-  isChecked: boolean;
-}) => {
+}: HeaderItemProps) => {
   const handleClick = () => {
     onClick(id);
   };
@@ -25,7 +21,7 @@ export const HeaderItem = ({
         type="radio"
         value={index}
         checked={isChecked}
-        onClick={handleClick}
+        onChange={handleClick}
       />
       <label htmlFor={`header-item-${index}`}>{name}</label>
     </HeaderItemContainer>

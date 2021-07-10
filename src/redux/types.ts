@@ -5,7 +5,7 @@ export type AppStatus = "initial" | "ready" | "loading" | "error";
 
 type DataType = "item" | "group";
 
-type DataItemType = {
+export type DataItemType = {
   id: number;
   name: string;
   type: DataType;

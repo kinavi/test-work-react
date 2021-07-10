@@ -3,10 +3,10 @@ import "../../styles.css";
 import { connector } from "./connector";
 import { AppPropsType } from "./types";
 import { Loader } from "../../components/Loader";
-import { getGuid } from "../../utils/getGuid";
 import { HeaderItem } from "../../components/HeaderItem";
 import { MenuItemsSelect } from "../../components/MenuItemsSelect";
 import { Header, SubHeader } from "./style";
+import { PriceItem } from "../../components/PriceItem";
 
 export const App = (props: AppPropsType) => {
   const {
@@ -38,9 +38,8 @@ export const App = (props: AppPropsType) => {
     return menuData.find((item) => item.id === selectedMenu)?.items || [];
   }, [menuData, selectedMenu]);
 
-  return (
-    <div className="App">
-      {status === "loading" && <Loader />}
+  const renderBody = () => (
+    <>
       <Header>
         {headerItems.map((item, index) => (
           <HeaderItem
@@ -61,7 +60,23 @@ export const App = (props: AppPropsType) => {
           />
         )}
       </SubHeader>
-      {showPrice && priceData.map((item) => item.name)}
+      {showPrice &&
+        priceData.map((item, index) => (
+          <PriceItem
+            key={`price-item-${item.id}`}
+            {...item}
+            index={index}
+            onClick={_selectPriceAC}
+            isChecked={item.id === selectedPrice}
+          />
+        ))}
+    </>
+  );
+
+  return (
+    <div className="App">
+      {status === "loading" && <Loader />}
+      {status === "ready" && renderBody()}
     </div>
   );
 };

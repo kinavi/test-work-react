@@ -18,7 +18,7 @@ export const DataReducer: Reducer<IDataState, AnyAction> = (
       localStorage.removeItem("selectedPrice");
       return {
         ...state,
-        selectedHeader: payload,
+        selectedHeader: Number(payload) || null,
         selectedMenu: null,
         selectedPrice: null
       };
@@ -27,14 +27,14 @@ export const DataReducer: Reducer<IDataState, AnyAction> = (
       localStorage.removeItem("selectedPrice");
       return {
         ...state,
-        selectedMenu: payload,
+        selectedMenu: Number(payload) || null,
         selectedPrice: null
       };
     case DataActions.selectPrice:
       localStorage.setItem("selectedPrice", payload);
       return {
         ...state,
-        selectedPrice: payload
+        selectedPrice: Number(payload) || null
       };
     default:
       return state;
